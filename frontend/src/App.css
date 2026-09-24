@@ -1,0 +1,52 @@
+main {
+  width: min(680px, 100%);
+  margin: auto;
+  padding: 48px 24px;
+  box-sizing: border-box;
+}
+
+.eyebrow {
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+h1 {
+  max-width: 560px;
+  margin: 18px 0;
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: 0.95;
+}
+
+.description {
+  max-width: 420px;
+  font-size: 1.1rem;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 40px;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  font-family: var(--mono);
+  font-size: 0.9rem;
+}
+
+.status span:first-child {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.status-ok span:first-child {
+  background: var(--success);
+}
+
+.status-error span:first-child {
+  background: var(--error);
+}
