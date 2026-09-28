@@ -54,8 +54,12 @@ function MovieDetailPage() {
       }
 
       const showtimesData = await getShowtimesByMovieId(movieData.id)
+      const now = Date.now()
+      const upcomingShowtimes = showtimesData.filter((showtime) => (
+        new Date(showtime.starts_at).getTime() >= now
+      ))
       const showtimesWithAvailability = await Promise.all(
-        showtimesData.map(async (showtime) => ({
+        upcomingShowtimes.map(async (showtime) => ({
           ...showtime,
           availableTickets: await getAvailableTickets(showtime),
         })),
