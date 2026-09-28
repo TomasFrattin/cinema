@@ -112,7 +112,6 @@ function PurchaseSuccessPage() {
 
       <div className="purchase-success-actions">
         <Link className="purchase-secondary-link" to="/cartelera">Volver a cartelera</Link>
-        <span>La confirmación real se conectará con la API en la próxima etapa.</span>
       </div>
     </main>
   )

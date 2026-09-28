@@ -34,7 +34,7 @@ function PurchaseProcessingPage() {
         <p className="eyebrow">COMPRA SIMULADA</p>
         <h1 id="purchase-processing-title">Procesando tu compra</h1>
         <p>Estamos simulando la validación del pago para {purchase.movie.title}.</p>
-        <span className="purchase-processing-hint">En producción, aquí se conectaría Mercado Pago u otro medio de pago.</span>
+        <span className="purchase-processing-hint">Aquí se conectaría Mercado Pago u otro medio de pago.</span>
       </section>
     </main>
   )
