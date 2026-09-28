@@ -1,5 +1,12 @@
 # Decisiones técnicas
 
+## MVP frontend-only con datos mockeados
+
+- **Decisión:** construir primero el MVP solo en frontend, con `Movie` y `Showtime` mockeados en JSON, detrás de una capa de servicio (`frontend/src/services/movies.service.js`) en lugar de leer los JSON directamente desde los componentes.
+- **Motivo:** permite mostrarle al cliente una versión navegable rápido, sin bloquear el avance por la implementación del backend, y sin acoplar la UI a un origen de datos concreto.
+- **Alternativa considerada:** seguir integrando frontend y backend en paralelo, descartada por ahora porque ralentiza la validación del MVP con el cliente.
+- **Consecuencia:** el servicio decide leer de los JSON o de la API según la variable de entorno `VITE_DATA_SOURCE`. El día que el backend exponga endpoints de `Movie`/`Showtime`, cambiar esa variable (y agregar la URL en `VITE_API_BASE_URL`) migra el origen de datos sin reescribir componentes. El backend y las migraciones de PostgreSQL no se eliminan; simplemente no son consumidos por el frontend todavía.
+
 ## Monorepo con proyectos independientes
 
 - **Decisión:** mantener `frontend/` y `backend/` con su propio `package.json`, coordinados desde la raíz.

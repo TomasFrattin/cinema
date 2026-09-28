@@ -7,11 +7,28 @@ El repositorio es un monorepo con dos proyectos independientes:
 - `frontend/`: aplicación React ejecutada con Vite.
 - `backend/`: servidor Express en JavaScript.
 
-El frontend se ejecuta en el puerto habitual de Vite y el backend escucha en el puerto 3000. Actualmente React consulta directamente `GET http://localhost:3000/api/health`. Express usa `cors` para permitir esa comunicación durante el desarrollo local.
+El frontend se ejecuta en el puerto habitual de Vite y el backend escucha en el puerto 3000.
 
-PostgreSQL es la base de datos del proyecto. La estructura se reproduce mediante migraciones SQL versionadas en `database/migrations/`. No se utiliza ORM ni una herramienta de migraciones pesada.
+PostgreSQL es la base de datos del proyecto. La estructura se reproduce mediante migraciones SQL versionadas en `database/migrations/`. No se utiliza ORM ni una herramienta de migraciones pesada. El backend centraliza la conexión mediante un `Pool` de `pg`, con credenciales por variables de entorno.
 
-El backend centraliza la conexión mediante un `Pool` de `pg`. Las credenciales se obtienen de variables de entorno y las migraciones se ejecutan contra la base `cinema` ya creada.
+## MVP frontend-only con datos mockeados
+
+Para validar el MVP con el cliente rápidamente, el frontend por ahora no consume el backend. Los datos de `Movie` y `Showtime` viven en JSON estáticos dentro de `frontend/src/mocks/` (`movies.json`, `showtimes.json`), con la misma forma de atributos documentada en este archivo.
+
+Toda la UI accede a los datos a través de `frontend/src/services/movies.service.js`, que expone `getMovies()` y `getShowtimesByMovieId(movieId)`. Estas funciones son la única puerta de entrada a los datos: los componentes no importan los JSON directamente ni conocen el origen real.
+
+El origen de datos se controla con la variable `VITE_DATA_SOURCE` (`mock` o `api`) definida en `frontend/.env`. Con `api`, el mismo servicio llama a `VITE_API_BASE_URL` (por ejemplo `GET /api/movies`) en lugar de leer los JSON. Migrar del mock a la API real consiste en cambiar esta variable y en implementar los endpoints correspondientes en el backend; no requiere modificar los componentes de React.
+
+El backend y las migraciones de PostgreSQL siguen existiendo y funcionando de forma independiente, pero el frontend no depende de ellos mientras dure esta etapa de MVP.
+
+## Imágenes (pósters y banners)
+
+Las imágenes se guardan en `frontend/public/images/`, no en `frontend/src/assets/`, porque se referencian de forma dinámica mediante un string (`poster_url`), igual que lo hará la API más adelante. Todo lo que está en `public/` se sirve tal cual, sin pasar por el bundler.
+
+- `frontend/public/images/movies/`: pósters de películas. El campo `poster_url` del mock (y luego de la API) apunta a `/images/movies/<archivo>`.
+- `frontend/public/images/banners/`: banners generales del sitio (por ejemplo, un hero de inicio), todavía sin uso en la UI.
+
+`frontend/src/assets/` queda reservado para gráficos fijos de la interfaz que se importan directamente en el código (no aplica a contenido variable como pósters).
 
 ## Modelo conceptual inicial
 
@@ -67,6 +84,6 @@ La gestión semanal se considera una observación o comportamiento esperado, no 
 
 ## Componentes aún no incorporados
 
-- Endpoints para `Movie` y `Showtime`: PENDIENTE.
+- Endpoints para `Movie` y `Showtime`: PENDIENTE. El frontend ya está preparado para consumirlos vía `VITE_DATA_SOURCE=api` cuando existan.
 - Integraciones externas: PENDIENTE.
 - Autenticación, reservas y tiempo real: PENDIENTE.

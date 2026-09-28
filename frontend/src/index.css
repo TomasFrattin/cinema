@@ -1,4 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap');
+
 :root {
+  --text: #d8d5cf;
+  --text-h: #f4f3f0;
+  --bg: #1f2021;
+  --panel: #35383b;
+  --border: #5c5c59;
+  --accent: #e0a34a;
+  --success: #7ba66d;
+  --error: #d46a52;
+  --radius: 6px;
+  --sans: 'Oswald', 'Arial Narrow', sans-serif;
+  --heading: 'Oswald', 'Arial Narrow', sans-serif;
+  --mono: Consolas, 'Courier New', monospace;
+
+  /* Paleta y tipografias anteriores, conservadas para una futura reversión.
   --text: #3f4652;
   --text-h: #17202b;
   --bg: #f1eee6;
@@ -9,7 +25,7 @@
   --error: #a52c27;
   --sans: 'Trebuchet MS', 'Segoe UI', sans-serif;
   --heading: Georgia, 'Times New Roman', serif;
-  --mono: Consolas, 'Courier New', monospace;
+  */
 
   font: 18px/1.45 var(--sans);
   color: var(--text);
@@ -23,7 +39,12 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background: radial-gradient(circle at 85% 12%, #e8c9a5 0, transparent 30%), var(--bg);
+  background:
+    radial-gradient(circle at 88% 8%, rgba(192, 76, 50, 0.34) 0, transparent 30%),
+    radial-gradient(circle at 8% 92%, rgba(74, 101, 224, 0.14) 0, transparent 28%),
+    var(--bg);
+
+  /* Fondo anterior: radial-gradient(circle at 85% 12%, #e8c9a5 0, transparent 30%), var(--bg); */
 }
 
 #root {
@@ -32,11 +53,17 @@ body {
   flex-direction: column;
 }
 
+#root > * {
+  width: 100%;
+}
+
 h1,
-h2 {
+h2,
+h3 {
   font-family: var(--heading);
-  font-weight: 400;
+  font-weight: 600;
   color: var(--text-h);
+  text-transform: uppercase;
 }
 p {
   margin: 0;

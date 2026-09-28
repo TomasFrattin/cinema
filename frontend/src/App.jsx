@@ -1,31 +1,36 @@
-import { useEffect, useState } from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
-
+import SiteLayout from './components/layout/SiteLayout'
+import ContactPage from './pages/ContactPage'
+import CandyShopPage from './pages/CandyShopPage'
+import HomePage from './pages/HomePage'
+import MovieDetailPage from './pages/MovieDetailPage'
+import NotFoundPage from './pages/NotFoundPage'
+import ProgrammingPage from './pages/ProgrammingPage'
+import PurchaseProcessingPage from './pages/PurchaseProcessingPage'
+import PurchaseSuccessPage from './pages/PurchaseSuccessPage'
+import TicketSelectionPage from './pages/TicketSelectionPage'
+import TermsPage from './pages/TermsPage'
+import UpcomingReleasesPage from './pages/UpcomingReleasesPage'
 function App() {
-  const [status, setStatus] = useState('consultando')
-
-  useEffect(() => {
-    fetch('http://localhost:3000/api/health')
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Health check failed')
-        }
-        return response.json()
-      })
-      .then((data) => setStatus(data.status))
-      .catch(() => setStatus('error'))
-  }, [])
-
   return (
-    <main>
-      <p className="eyebrow">CINEMA / CONFIGURACION INICIAL</p>
-      <h1>La pantalla esta lista.</h1>
-      <p className="description">React esta ejecutandose y puede comunicarse con Express.</p>
-      <div className={`status status-${status}`}>
-        <span aria-hidden="true" />
-        <span>API health: {status}</span>
-      </div>
-    </main>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<SiteLayout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/cartelera" element={<ProgrammingPage />} />
+          <Route path="/proximos-estrenos" element={<UpcomingReleasesPage />} />
+          <Route path="/candy-shop" element={<CandyShopPage />} />
+          <Route path="/contacto" element={<ContactPage />} />
+          <Route path="/peliculas/:movieId" element={<MovieDetailPage />} />
+          <Route path="/funciones/:showtimeId/entradas" element={<TicketSelectionPage />} />
+          <Route path="/compra/procesando" element={<PurchaseProcessingPage />} />
+          <Route path="/compra/exito" element={<PurchaseSuccessPage />} />
+          <Route path="/terminos-y-condiciones" element={<TermsPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 

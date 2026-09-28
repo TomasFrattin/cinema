@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "showtime_id": 1,
+    "customer": {
+      "name": "Reserva de ejemplo",
+      "email": "demo@cine.local"
+    },
+    "tickets": [
+      { "type": "general", "quantity": 18 },
+      { "type": "reduced", "quantity": 7 }
+    ],
+    "status": "confirmed",
+    "seat_ids": null
+  },
+  {
+    "id": 2,
+    "showtime_id": 2,
+    "customer": {
+      "name": "Reserva de ejemplo",
+      "email": "demo@cine.local"
+    },
+    "tickets": [
+      { "type": "general", "quantity": 42 }
+    ],
+    "status": "confirmed",
+    "seat_ids": null
+  }
+]

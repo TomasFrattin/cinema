@@ -1,0 +1,19 @@
+{
+  "currency": "ARS",
+  "formats": [
+    {
+      "label": "2D",
+      "prices": [
+        { "label": "General", "amount": 8000 },
+        { "label": "Menores, jubilados y universitarios", "amount": 7000 }
+      ]
+    },
+    {
+      "label": "3D",
+      "prices": [
+        { "label": "General", "amount": 10000 },
+        { "label": "Menores, jubilados y universitarios", "amount": 9000 }
+      ]
+    }
+  ]
+}

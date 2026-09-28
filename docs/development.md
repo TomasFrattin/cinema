@@ -18,13 +18,20 @@ cd ../backend && npm install
 
 Copiar `backend/.env.example` como `backend/.env` y completar las variables de PostgreSQL. En este entorno ya existe un `backend/.env` local. No versionar `backend/.env` ni incluir credenciales reales en Git.
 
-Variables utilizadas:
+Copiar `frontend/.env.example` como `frontend/.env` si se quiere cambiar el origen de datos del frontend (ver "MVP frontend-only" abajo).
+
+Variables utilizadas por el backend:
 
 - `DB_HOST`: servidor PostgreSQL.
 - `DB_PORT`: puerto PostgreSQL, normalmente `5432`.
 - `DB_NAME`: base del proyecto, `cinema`.
 - `DB_USER`: usuario de PostgreSQL.
 - `DB_PASSWORD`: contraseña del usuario.
+
+Variables utilizadas por el frontend:
+
+- `VITE_DATA_SOURCE`: `mock` (por defecto) para leer `Movie`/`Showtime` desde JSON locales, o `api` para consumir el backend.
+- `VITE_API_BASE_URL`: URL base del backend cuando `VITE_DATA_SOURCE=api`, por defecto `http://localhost:3000`.
 
 ## Comandos
 
@@ -52,4 +59,15 @@ Las migraciones se ejecutan en este orden:
 
 El runner registra las migraciones aplicadas en `schema_migrations` y no vuelve a ejecutar una versión ya registrada. Ejecutar nuevamente `npm run migrate` no duplica ni reaplica migraciones.
 
-Todavía no existen endpoints de `Movie` o `Showtime`, ni datos seed ficticios.
+Todavía no existen endpoints de `Movie` o `Showtime`, ni datos seed ficticios en la base de datos.
+
+## MVP frontend-only
+
+Mientras se valida el MVP con el cliente, el frontend usa datos mockeados en `frontend/src/mocks/movies.json` y `showtimes.json`, accedidos únicamente a través de `frontend/src/services/movies.service.js`.
+
+Para trabajar sobre el MVP alcanza con:
+
+1. Ejecutar `npm run dev:front` (o `npm run dev` desde la raíz).
+2. Abrir `http://localhost:5173` y ver la cartelera con datos de prueba.
+
+No es necesario levantar el backend ni PostgreSQL para este flujo. El backend sigue disponible para seguir desarrollándose en paralelo, pero el frontend no depende de él hasta que se cambie `VITE_DATA_SOURCE=api`.
